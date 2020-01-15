@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t draganglumac/react-test -f client/Dockerfile.dev client
+
+scripts:
+  - docker run -e CI=true draganglumac/react-test npm test
+
+after_success:
+  - docker build -t draganglumac/multi-client client
+  - docker build -t draganglumac/multi-nginx nginx
+  - docker build -t draganglumac/multi-server server
+  - docker build -t draganglumac/multi-worker worker
+  # Login to the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take the images and push them to Dockerhub
+  - docker push draganglumac/multi-client
+  - docker push draganglumac/multi-nginx
+  - docker push draganglumac/multi-server
+  - docker push draganglumac/multi-worker
