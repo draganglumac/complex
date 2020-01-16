@@ -5,7 +5,7 @@ services:
 before_install:
   - docker build -t draganglumac/react-test -f client/Dockerfile.dev client
 
-scripts:
+script:
   - docker run -e CI=true draganglumac/react-test npm test
 
 after_success:
