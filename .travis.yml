@@ -20,17 +20,16 @@ after_success:
   - docker push draganglumac/multi-server
   - docker push draganglumac/multi-worker
 
-  deploy:
-    edge: true
-    provider: elasticbeanstalk
-    region: "eu-west-2"
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: 
-      secure: $AWS_SECRET_KEY
-    app: multi-docker
-    env: MultiDocker-env
-    bucket_name: elasticbeanstalk-eu-west-2-116810875000
-    bucket_path: docker-multi
-    on:
-      branch: master
-    
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "eu-west-2"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: $AWS_SECRET_KEY
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-eu-west-2-116810875000
+  bucket_path: docker-multi
+  on:
+    branch: master
